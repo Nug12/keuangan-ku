@@ -1,6 +1,7 @@
 import { api } from '../api.js';
 import { store } from '../store.js';
 import { navigate } from '../router.js';
+import { NotificationBell } from '../components/NotificationBell.js';
 
 export async function renderDashboard() {
     const app = document.getElementById('app');
@@ -16,7 +17,10 @@ export async function renderDashboard() {
                     <a href="#/app/budgets">Budget</a>
                     <a href="#/app/reports">Laporan</a>
                 </div>
-                <button class="btn btn-secondary" id="logoutBtn">Keluar</button>
+                <div class="nav-right">
+                    <div id="notifBell"></div>
+                    <button class="btn btn-secondary" id="logoutBtn">Keluar</button>
+                </div>
             </nav>
 
             <div class="dashboard">
@@ -55,6 +59,9 @@ export async function renderDashboard() {
 
     // Load data
     await loadDashboard();
+
+    // Add notification bell
+    document.getElementById('notifBell').appendChild(NotificationBell());
 
     // Logout
     document.getElementById('logoutBtn').addEventListener('click', () => {

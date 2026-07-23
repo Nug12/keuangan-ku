@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import db from '../db/database.js';
 import { authenticateToken } from '../middleware/auth.js';
+import { createNotification } from './notifications.js';
 
 const router = Router();
 router.use(authenticateToken);
@@ -67,6 +68,26 @@ router.post('/', (req, res) => {
     // Update pocket balance
     const newBalance = type === 'income' ? pocket.balance + amount : pocket.balance - amount;
     db.prepare('UPDATE pockets SET balance = ? WHERE id = ?').run(newBalance, pocket_id);
+
+    // Check budget warning for expense
+    if (type === 'expense') {
+        const budget = db.prepare('SELECT * FROM budgets WHERE pocket_id = ? AND user_id = ?')
+            .get(pocket_id, req.user.id);
+
+        if (budget) {
+            const spent = db.prepare(`
+                SELECT COALESCE(SUM(amount), 0) as total
+                FROM transactions
+                WHERE pocket_id = ? AND type = 'expense' AND created_at >= ? AND created_at <= ?
+            `).get(pocket_id, budget.start_date || new Date().toISOString().split('T')[0], budget.end_date || new Date().toISOString().split('T')[0]);
+
+            const percentage = (spent.total / budget.amount) * 100;
+            if (percentage >= 80) {
+                createNotification(req.user.id, 'budget_warning',
+                    `Budget untuk kantong "${pocket.name}" sudah ${percentage.toFixed(0)}% terpakai!`);
+            }
+        }
+    }
 
     const transaction = db.prepare('SELECT * FROM transactions WHERE id = ?').get(id);
     res.status(201).json(transaction);

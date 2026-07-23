@@ -125,6 +125,12 @@
     border-bottom: none;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media (max-width: 768px) {
     .navbar-app {
         flex-direction: column;
@@ -133,6 +139,11 @@
 
     .nav-links {
         flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-right {
+        width: 100%;
         justify-content: center;
     }
 }

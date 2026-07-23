@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
 import authRoutes from './routes/auth.js';
+import pocketRoutes from './routes/pockets.js';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get('/api/health', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/pockets', pocketRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

@@ -6,6 +6,7 @@ import { route, initRouter, navigate } from './router.js';
 import { renderLogin } from './pages/Login.js';
 import { renderRegister } from './pages/Register.js';
 import { renderDashboard } from './pages/Dashboard.js';
+import { renderPockets } from './pages/Pockets.js';
 
 // Check auth
 function isAuthenticated() {
@@ -27,6 +28,7 @@ function requireAuth(handler) {
 route('/login', renderLogin);
 route('/register', renderRegister);
 route('/app', requireAuth(renderDashboard));
+route('/app/pockets', requireAuth(renderPockets));
 
 // Init
 initRouter();

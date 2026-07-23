@@ -1,5 +1,6 @@
 @import './variables.css';
 @import './components/auth.css';
+@import './components/pockets.css';
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 

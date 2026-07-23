@@ -3,11 +3,15 @@
     {
       "id": "keuangan-ku",
       "name": "KeuanganKu",
-      "icon": "💰",
-      "description": "Kelola keuangan pribadi dengan mudah",
+      "icon": "fa-solid fa-wallet",
+      "description": "Aplikasi pengelolaan keuangan pribadi dengan fitur kantong (pocket), transaksi, anggaran, laporan grafik, export PDF/Excel, notifikasi, dan mode offline.",
       "url": "/app",
       "color": "#87CEEB",
-      "status": "live"
+      "status": "Live",
+      "demo": {
+        "username": "demo@keuanganku.com",
+        "password": "demo1234"
+      }
     }
   ]
 }

@@ -15,6 +15,18 @@ body {
     line-height: 1.6;
 }
 
+.offline-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--warning);
+    color: var(--text);
+    text-align: center;
+    padding: 0.5rem;
+    z-index: 9999;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;

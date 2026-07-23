@@ -9,6 +9,7 @@ import { renderDashboard } from './pages/Dashboard.js';
 import { renderPockets } from './pages/Pockets.js';
 import { renderTransactions } from './pages/Transactions.js';
 import { renderBudgets } from './pages/Budgets.js';
+import { renderReports } from './pages/Reports.js';
 
 // Check auth
 function isAuthenticated() {
@@ -33,6 +34,7 @@ route('/app', requireAuth(renderDashboard));
 route('/app/pockets', requireAuth(renderPockets));
 route('/app/transactions', requireAuth(renderTransactions));
 route('/app/budgets', requireAuth(renderBudgets));
+route('/app/reports', requireAuth(renderReports));
 
 // Init
 initRouter();

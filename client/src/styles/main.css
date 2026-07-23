@@ -3,6 +3,7 @@
 @import './components/pockets.css';
 @import './components/transactions.css';
 @import './components/budgets.css';
+@import './components/reports.css';
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 

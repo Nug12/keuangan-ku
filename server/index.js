@@ -6,6 +6,7 @@ import { join } from 'path';
 import authRoutes from './routes/auth.js';
 import pocketRoutes from './routes/pockets.js';
 import transactionRoutes from './routes/transactions.js';
+import budgetRoutes from './routes/budgets.js';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/pockets', pocketRoutes);
 app.use('/api/transactions', transactionRoutes);
+app.use('/api/budgets', budgetRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

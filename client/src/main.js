@@ -1,0 +1,32 @@
+import { api } from './api.js';
+import { store } from './store.js';
+import { route, initRouter, navigate } from './router.js';
+
+// Pages
+import { renderLogin } from './pages/Login.js';
+import { renderRegister } from './pages/Register.js';
+import { renderDashboard } from './pages/Dashboard.js';
+
+// Check auth
+function isAuthenticated() {
+    return !!localStorage.getItem('token');
+}
+
+// Auth guard
+function requireAuth(handler) {
+    return async () => {
+        if (!isAuthenticated()) {
+            navigate('/login');
+            return;
+        }
+        await handler();
+    };
+}
+
+// Routes
+route('/login', renderLogin);
+route('/register', renderRegister);
+route('/app', requireAuth(renderDashboard));
+
+// Init
+initRouter();

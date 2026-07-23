@@ -9,7 +9,7 @@ export async function renderDashboard() {
     app.innerHTML = `
         <div class="container">
             <nav class="navbar-app">
-                <div class="logo">💰 KeuanganKu</div>
+                <div class="logo"><i class="fa-solid fa-wallet"></i> KeuanganKu</div>
                 <div class="nav-links">
                     <a href="#/keuanganku" class="active">Dashboard</a>
                     <a href="#/keuanganku/pockets">Kantong</a>

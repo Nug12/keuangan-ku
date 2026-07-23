@@ -13,7 +13,7 @@ export async function renderReports() {
     app.innerHTML = `
         <div class="container">
             <nav class="navbar-app">
-                <div class="logo">💰 KeuanganKu</div>
+                <div class="logo"><i class="fa-solid fa-wallet"></i> KeuanganKu</div>
                 <div class="nav-links">
                     <a href="#/keuanganku">Dashboard</a>
                     <a href="#/keuanganku/pockets">Kantong</a>
@@ -25,10 +25,10 @@ export async function renderReports() {
             </nav>
 
             <div class="page-header">
-                <h1>📈 Laporan</h1>
+                <h1><i class="fa-solid fa-chart-line"></i> Laporan</h1>
                 <div class="export-buttons">
-                    <button class="btn btn-secondary" id="exportPDF">📄 Export PDF</button>
-                    <button class="btn btn-secondary" id="exportExcel">📊 Export Excel</button>
+                    <button class="btn btn-secondary" id="exportPDF"><i class="fa-solid fa-file-pdf"></i> Export PDF</button>
+                    <button class="btn btn-secondary" id="exportExcel"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
                 </div>
             </div>
 

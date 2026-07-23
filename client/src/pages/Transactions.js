@@ -9,7 +9,7 @@ export async function renderTransactions() {
     app.innerHTML = `
         <div class="container">
             <nav class="navbar-app">
-                <div class="logo">💰 KeuanganKu</div>
+                <div class="logo"><i class="fa-solid fa-wallet"></i> KeuanganKu</div>
                 <div class="nav-links">
                     <a href="#/keuanganku">Dashboard</a>
                     <a href="#/keuanganku/pockets">Kantong</a>
@@ -21,7 +21,7 @@ export async function renderTransactions() {
             </nav>
 
             <div class="page-header">
-                <h1>💳 Transaksi</h1>
+                <h1><i class="fa-solid fa-credit-card"></i> Transaksi</h1>
             </div>
 
             <div class="transaction-layout">
@@ -101,21 +101,37 @@ function renderTransactionList() {
     const list = document.getElementById('transactionList');
     list.innerHTML = '';
 
+    const categoryIcons = {
+        makanan: '<i class="fa-solid fa-utensils"></i>',
+        transport: '<i class="fa-solid fa-car"></i>',
+        belanja: '<i class="fa-solid fa-cart-shopping"></i>',
+        tagihan: '<i class="fa-solid fa-file-invoice"></i>',
+        hiburan: '<i class="fa-solid fa-gamepad"></i>',
+        gaji: '<i class="fa-solid fa-money-bill"></i>',
+        lainnya: '<i class="fa-solid fa-box"></i>',
+    };
+
     store.transactions.forEach(txn => {
         const item = document.createElement('div');
         item.className = 'transaction-item';
 
         const isIncome = txn.type === 'income';
         const isTransfer = txn.type === 'transfer';
-        const icon = isIncome ? '📈' : isTransfer ? '🔄' : '📉';
-        const color = isIncome ? 'var(--success)' : isTransfer ? 'var(--primary)' : 'var(--danger)';
+        const icon = isTransfer
+            ? '<i class="fa-solid fa-arrow-right-arrow-left"></i>'
+            : (categoryIcons[txn.category] || categoryIcons.lainnya);
+        const bgColor = isIncome ? '#d4edda' : isTransfer ? '#d1ecf1' : '#f8d7da';
+        const color = isIncome ? '#155724' : isTransfer ? '#0c5460' : '#721c24';
         const sign = isIncome ? '+' : '-';
+        const date = new Date(txn.created_at);
+        const dateStr = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        const timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
         item.innerHTML = `
-            <div class="txn-icon">${icon}</div>
+            <div class="txn-icon" style="background:${bgColor}; color:${color}">${icon}</div>
             <div class="txn-info">
                 <p class="txn-desc">${txn.description || txn.category || txn.type}</p>
-                <p class="txn-date">${new Date(txn.created_at).toLocaleDateString('id-ID')}</p>
+                <p class="txn-date">${dateStr} • ${timeStr}</p>
             </div>
             <div class="txn-amount" style="color:${color}">${sign} Rp ${txn.amount.toLocaleString('id-ID')}</div>
         `;

@@ -8,7 +8,7 @@ export async function renderPockets() {
     app.innerHTML = `
         <div class="container">
             <nav class="navbar-app">
-                <div class="logo">💰 KeuanganKu</div>
+                <div class="logo"><i class="fa-solid fa-wallet"></i> KeuanganKu</div>
                 <div class="nav-links">
                     <a href="#/keuanganku">Dashboard</a>
                     <a href="#/keuanganku/pockets" class="active">Kantong</a>
@@ -20,8 +20,8 @@ export async function renderPockets() {
             </nav>
 
             <div class="page-header">
-                <h1>💰 Kantong Saya</h1>
-                <button class="btn btn-primary" id="addPocket">+ Tambah Kantong</button>
+                <h1><i class="fa-solid fa-wallet"></i> Kantong Saya</h1>
+                <button class="btn btn-primary" id="addPocket"><i class="fa-solid fa-plus"></i> Tambah Kantong</button>
             </div>
             <div class="pockets-grid" id="pocketsGrid"></div>
         </div>

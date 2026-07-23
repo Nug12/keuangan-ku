@@ -8,7 +8,7 @@ export async function renderBudgets() {
     app.innerHTML = `
         <div class="container">
             <nav class="navbar-app">
-                <div class="logo">💰 KeuanganKu</div>
+                <div class="logo"><i class="fa-solid fa-wallet"></i> KeuanganKu</div>
                 <div class="nav-links">
                     <a href="#/keuanganku">Dashboard</a>
                     <a href="#/keuanganku/pockets">Kantong</a>
@@ -20,8 +20,8 @@ export async function renderBudgets() {
             </nav>
 
             <div class="page-header">
-                <h1>📊 Budget</h1>
-                <button class="btn btn-primary" id="addBudget">+ Tambah Budget</button>
+                <h1><i class="fa-solid fa-chart-pie"></i> Budget</h1>
+                <button class="btn btn-primary" id="addBudget"><i class="fa-solid fa-plus"></i> Tambah Budget</button>
             </div>
             <div class="budgets-grid" id="budgetsGrid"></div>
         </div>

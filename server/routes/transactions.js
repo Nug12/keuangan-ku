@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
 
 // Create transaction (income/expense)
 router.post('/', (req, res) => {
-    const { pocket_id, type, amount, description, category } = req.body;
+    const { pocket_id, type, amount, description, category, created_at } = req.body;
 
     if (!pocket_id || !type || !amount) {
         return res.status(400).json({ error: 'pocket_id, type, and amount are required' });
@@ -60,10 +60,11 @@ router.post('/', (req, res) => {
     }
 
     const id = uuidv4();
+    const txnDate = created_at || new Date().toISOString();
 
     // Insert transaction
-    db.prepare('INSERT INTO transactions (id, user_id, pocket_id, type, amount, description, category) VALUES (?, ?, ?, ?, ?, ?, ?)')
-        .run(id, req.user.id, pocket_id, type, amount, description, category);
+    db.prepare('INSERT INTO transactions (id, user_id, pocket_id, type, amount, description, category, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
+        .run(id, req.user.id, pocket_id, type, amount, description, category, txnDate);
 
     // Update pocket balance
     const newBalance = type === 'income' ? pocket.balance + amount : pocket.balance - amount;
@@ -95,7 +96,7 @@ router.post('/', (req, res) => {
 
 // Transfer between pockets
 router.post('/transfer', (req, res) => {
-    const { from_pocket_id, to_pocket_id, amount, description } = req.body;
+    const { from_pocket_id, to_pocket_id, amount, description, created_at } = req.body;
 
     if (!from_pocket_id || !to_pocket_id || !amount) {
         return res.status(400).json({ error: 'from_pocket_id, to_pocket_id, and amount are required' });
@@ -120,10 +121,11 @@ router.post('/transfer', (req, res) => {
     }
 
     const id = uuidv4();
+    const txnDate = created_at || new Date().toISOString();
 
     // Insert transfer transaction
-    db.prepare('INSERT INTO transactions (id, user_id, pocket_id, type, amount, description, target_pocket_id) VALUES (?, ?, ?, ?, ?, ?, ?)')
-        .run(id, req.user.id, from_pocket_id, 'transfer', amount, description, to_pocket_id);
+    db.prepare('INSERT INTO transactions (id, user_id, pocket_id, type, amount, description, target_pocket_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
+        .run(id, req.user.id, from_pocket_id, 'transfer', amount, description, to_pocket_id, txnDate);
 
     // Update balances
     db.prepare('UPDATE pockets SET balance = ? WHERE id = ?')

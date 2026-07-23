@@ -1,17 +1,15 @@
 # Stage 1: Build frontend
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app/client
-COPY client/package*.json ./
-RUN npm ci --only=production
 COPY client/ .
-RUN npm run build
+RUN rm -rf node_modules && npm install && npm run build
 
 # Stage 2: Production
-FROM node:18-alpine
+FROM node:22-alpine
+RUN apk add --no-cache python3 make g++
 WORKDIR /app
-COPY server/package*.json ./
-RUN npm ci --only=production
 COPY server/ .
+RUN rm -rf node_modules && npm install --omit=dev
 COPY --from=builder /app/client/dist ./public
 RUN mkdir -p data
 EXPOSE 3000

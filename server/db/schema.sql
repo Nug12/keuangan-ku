@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE pockets (
+CREATE TABLE IF NOT EXISTS pockets (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     name TEXT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE pockets (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     pocket_id TEXT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE transactions (
     FOREIGN KEY (target_pocket_id) REFERENCES pockets(id)
 );
 
-CREATE TABLE budgets (
+CREATE TABLE IF NOT EXISTS budgets (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     pocket_id TEXT NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE budgets (
     FOREIGN KEY (pocket_id) REFERENCES pockets(id)
 );
 
-CREATE TABLE notifications (
+CREATE TABLE IF NOT EXISTS notifications (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     type TEXT,

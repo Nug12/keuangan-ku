@@ -1,0 +1,29 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { mkdirSync } from 'fs';
+import { join } from 'path';
+import authRoutes from './routes/auth.js';
+
+dotenv.config();
+
+// Ensure data directory exists
+mkdirSync(join(process.cwd(), 'data'), { recursive: true });
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+
+// Health check
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
+// Routes
+app.use('/api/auth', authRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

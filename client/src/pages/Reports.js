@@ -2,6 +2,8 @@ import { api } from '../api.js';
 import { PieChart } from '../components/Charts/PieChart.js';
 import { LineChart } from '../components/Charts/LineChart.js';
 import { BarChart } from '../components/Charts/BarChart.js';
+import jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 
 let charts = [];
 
@@ -187,13 +189,80 @@ async function handleExport(e) {
 }
 
 function exportPDF(data, startDate, endDate) {
-    // Will be implemented in Phase 8
-    console.log('PDF export:', data);
-    alert('PDF export akan diimplementasikan di Phase 8');
+    const doc = new jsPDF();
+
+    // Header
+    doc.setFontSize(20);
+    doc.text('Laporan Keuangan', 105, 20, { align: 'center' });
+
+    doc.setFontSize(12);
+    doc.text(`Periode: ${startDate} - ${endDate}`, 105, 30, { align: 'center' });
+
+    // Table header
+    let y = 50;
+    doc.setFontSize(10);
+    doc.setFont(undefined, 'bold');
+    doc.text('Tanggal', 20, y);
+    doc.text('Tipe', 60, y);
+    doc.text('Kategori', 90, y);
+    doc.text('Deskripsi', 120, y);
+    doc.text('Jumlah', 160, y);
+
+    // Table data
+    doc.setFont(undefined, 'normal');
+    y += 10;
+
+    data.forEach(txn => {
+        if (y > 270) {
+            doc.addPage();
+            y = 20;
+        }
+
+        doc.text(new Date(txn.created_at).toLocaleDateString('id-ID'), 20, y);
+        doc.text(txn.type, 60, y);
+        doc.text(txn.category || '-', 90, y);
+        doc.text(txn.description || '-', 120, y);
+        doc.text(`Rp ${txn.amount.toLocaleString('id-ID')}`, 160, y);
+
+        y += 8;
+    });
+
+    // Summary
+    y += 10;
+    doc.setFont(undefined, 'bold');
+    const totalIncome = data.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+    const totalExpense = data.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+
+    doc.text('Total Pemasukan:', 20, y);
+    doc.text(`Rp ${totalIncome.toLocaleString('id-ID')}`, 160, y);
+    y += 8;
+    doc.text('Total Pengeluaran:', 20, y);
+    doc.text(`Rp ${totalExpense.toLocaleString('id-ID')}`, 160, y);
+
+    doc.save(`laporan-keuangan-${startDate}-${endDate}.pdf`);
 }
 
 function exportExcel(data, startDate, endDate) {
-    // Will be implemented in Phase 8
-    console.log('Excel export:', data);
-    alert('Excel export akan diimplementasikan di Phase 8');
+    const worksheetData = data.map(txn => ({
+        'Tanggal': new Date(txn.created_at).toLocaleDateString('id-ID'),
+        'Tipe': txn.type,
+        'Kategori': txn.category || '-',
+        'Deskripsi': txn.description || '-',
+        'Jumlah': txn.amount,
+    }));
+
+    // Add summary
+    const totalIncome = data.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+    const totalExpense = data.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+
+    worksheetData.push({});
+    worksheetData.push({ 'Tanggal': 'Total Pemasukan', 'Jumlah': totalIncome });
+    worksheetData.push({ 'Tanggal': 'Total Pengeluaran', 'Jumlah': totalExpense });
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Laporan');
+
+    XLSX.writeFile(workbook, `laporan-keuangan-${startDate}-${endDate}.xlsx`);
 }

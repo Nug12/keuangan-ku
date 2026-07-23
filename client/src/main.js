@@ -36,6 +36,11 @@ route('/keuanganku/transactions', requireAuth(renderTransactions));
 route('/keuanganku/budgets', requireAuth(renderBudgets));
 route('/keuanganku/reports', requireAuth(renderReports));
 
+// Default: redirect based on auth
+route('/', () => {
+    navigate(isAuthenticated() ? '/keuanganku' : '/login');
+});
+
 // Register service worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

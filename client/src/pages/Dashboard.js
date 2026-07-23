@@ -90,7 +90,7 @@ async function loadDashboard() {
             const item = document.createElement('div');
             item.className = 'list-item';
             item.innerHTML = `
-                <span>${pocket.icon} ${pocket.name}</span>
+                <span><i class="${pocket.icon}" style="color:${pocket.color}"></i> ${pocket.name}</span>
                 <span>Rp ${pocket.balance.toLocaleString('id-ID')}</span>
             `;
             pocketsList.appendChild(item);

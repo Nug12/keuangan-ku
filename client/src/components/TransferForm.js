@@ -24,12 +24,12 @@ export function TransferForm(pockets, onSubmit) {
 
         <label>Dari Kantong</label>
         <select id="fromPocket" required>
-            ${pockets.map(p => `<option value="${p.id}">${p.icon} ${p.name} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
+            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
         </select>
 
         <label>Ke Kantong</label>
         <select id="toPocket" required>
-            ${pockets.map(p => `<option value="${p.id}">${p.icon} ${p.name} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
+            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
         </select>
 
         <label>Nominal</label>

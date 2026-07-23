@@ -5,10 +5,12 @@ export function PocketCard(pocket, onEdit, onDelete) {
 
     card.innerHTML = `
         <div class="pocket-header">
-            <span class="pocket-icon">${pocket.icon}</span>
+            <div class="pocket-icon-box" style="background:${pocket.color}20; color:${pocket.color}">
+                <i class="${pocket.icon}"></i>
+            </div>
             <div class="pocket-actions">
-                <button class="btn-icon edit-btn">✏️</button>
-                <button class="btn-icon delete-btn">🗑️</button>
+                <button class="btn-icon edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon delete-btn" title="Hapus"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
         <h3>${pocket.name}</h3>

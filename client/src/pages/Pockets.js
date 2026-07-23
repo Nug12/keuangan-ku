@@ -29,13 +29,27 @@ export async function renderPockets() {
         <!-- Modal -->
         <div class="modal" id="modal" style="display:none">
             <div class="modal-content">
-                <h2 id="modalTitle">Tambah Kantong</h2>
+                <h2 id="modalTitle"><i class="fa-solid fa-wallet"></i> Tambah Kantong</h2>
                 <form id="pocketForm">
                     <input type="hidden" id="pocketId">
                     <label>Nama Kantong</label>
-                    <input type="text" id="pocketName" required>
+                    <input type="text" id="pocketName" required placeholder="Contoh: Dompet, Tabungan">
                     <label>Icon</label>
-                    <input type="text" id="pocketIcon" value="💰">
+                    <div class="icon-picker" id="iconPicker">
+                        <button type="button" class="icon-opt active" data-icon="fa-solid fa-wallet"><i class="fa-solid fa-wallet"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-piggy-bank"><i class="fa-solid fa-piggy-bank"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-money-bill"><i class="fa-solid fa-money-bill"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-credit-card"><i class="fa-solid fa-credit-card"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-shield-halved"><i class="fa-solid fa-shield-halved"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-plane"><i class="fa-solid fa-plane"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-utensils"><i class="fa-solid fa-utensils"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-car"><i class="fa-solid fa-car"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-gift"><i class="fa-solid fa-gift"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-graduation-cap"><i class="fa-solid fa-graduation-cap"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-heart"><i class="fa-solid fa-heart"></i></button>
+                        <button type="button" class="icon-opt" data-icon="fa-solid fa-star"><i class="fa-solid fa-star"></i></button>
+                    </div>
+                    <input type="hidden" id="pocketIcon" value="fa-solid fa-wallet">
                     <label>Warna</label>
                     <input type="color" id="pocketColor" value="#87CEEB">
                     <div class="modal-actions">
@@ -58,6 +72,15 @@ export async function renderPockets() {
         localStorage.removeItem('token');
         window.location.hash = '#/login';
     });
+
+    // Icon picker
+    document.querySelectorAll('.icon-opt').forEach(opt => {
+        opt.addEventListener('click', () => {
+            document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+            document.getElementById('pocketIcon').value = opt.dataset.icon;
+        });
+    });
 }
 
 async function loadPockets() {
@@ -78,10 +101,12 @@ function renderGrid() {
 
 function openModal() {
     document.getElementById('modal').style.display = 'flex';
-    document.getElementById('modalTitle').textContent = 'Tambah Kantong';
+    document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-plus"></i> Tambah Kantong';
     document.getElementById('pocketForm').reset();
-    document.getElementById('pocketIcon').value = '💰';
+    document.getElementById('pocketIcon').value = 'fa-solid fa-wallet';
     document.getElementById('pocketColor').value = '#87CEEB';
+    document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('active'));
+    document.querySelector('.icon-opt').classList.add('active');
 }
 
 function closeModal() {
@@ -90,11 +115,15 @@ function closeModal() {
 
 function openEditModal(pocket) {
     document.getElementById('modal').style.display = 'flex';
-    document.getElementById('modalTitle').textContent = 'Edit Kantong';
+    document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-pen"></i> Edit Kantong';
     document.getElementById('pocketId').value = pocket.id;
     document.getElementById('pocketName').value = pocket.name;
     document.getElementById('pocketIcon').value = pocket.icon;
     document.getElementById('pocketColor').value = pocket.color;
+    // Highlight active icon
+    document.querySelectorAll('.icon-opt').forEach(o => {
+        o.classList.toggle('active', o.dataset.icon === pocket.icon);
+    });
 }
 
 async function handleSubmit(e) {

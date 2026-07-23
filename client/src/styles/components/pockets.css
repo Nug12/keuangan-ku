@@ -1,44 +1,79 @@
 .pockets-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
 }
 
 .pocket-card {
-    transition: transform 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
 }
 
 .pocket-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .pocket-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
 }
 
-.pocket-icon {
-    font-size: 2rem;
+.pocket-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
 }
 
 .pocket-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.pocket-card:hover .pocket-actions {
+    opacity: 1;
 }
 
 .btn-icon {
-    background: none;
+    width: 30px;
+    height: 30px;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1.2rem;
-    padding: 0.25rem;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    color: var(--text-light);
+    transition: all 0.15s;
+}
+
+.btn-icon:hover {
+    background: var(--primary);
+    color: var(--text);
+}
+
+.btn-icon.delete-btn:hover {
+    background: var(--danger);
+    color: #721c24;
+}
+
+.pocket-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
 }
 
 .pocket-balance {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: 700;
     color: var(--primary);
-    margin-top: 0.5rem;
 }

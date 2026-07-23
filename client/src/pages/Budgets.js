@@ -74,7 +74,7 @@ async function loadPockets() {
     // Populate pocket select
     const select = document.getElementById('budgetPocket');
     select.innerHTML = store.pockets.map(p =>
-        `<option value="${p.id}">${p.icon} ${p.name}</option>`
+        `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name}</option>`
     ).join('');
 }
 

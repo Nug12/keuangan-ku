@@ -29,7 +29,7 @@ export function TransactionForm(pockets, onSubmit) {
 
         <label>Kantong</label>
         <select id="txnPocket" required>
-            ${pockets.map(p => `<option value="${p.id}">${p.icon} ${p.name}</option>`).join('')}
+            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name}</option>`).join('')}
         </select>
 
         <label>Nominal</label>

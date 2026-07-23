@@ -1,0 +1,104 @@
+:root {
+    --primary: #87CEEB;
+    --primary-light: #B0E0E6;
+    --secondary: #98FB98;
+    --background: #FFFAF0;
+    --text: #2F4F4F;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.navbar {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.2rem; color: #666; }
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.app-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.app-card .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.app-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+.app-card p { color: #666; font-size: 0.9rem; }
+
+.app-card .status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    background: #90EE90;
+    color: #2F4F4F;
+}
+
+.about {
+    text-align: center;
+    padding: 4rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 1.8rem; }
+    .container { padding: 1rem; }
+}

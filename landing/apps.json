@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "id": "keuangan-ku",
+      "name": "KeuanganKu",
+      "icon": "💰",
+      "description": "Kelola keuangan pribadi dengan mudah",
+      "url": "/app",
+      "color": "#87CEEB",
+      "status": "live"
+    }
+  ]
+}

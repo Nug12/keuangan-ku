@@ -8,7 +8,7 @@ export function renderLogin() {
         <div class="container">
             <div class="auth-container">
                 <div class="auth-card">
-                    <h1>💰 KeuanganKu</h1>
+                    <h1><i class="fa-solid fa-wallet"></i> KeuanganKu</h1>
                     <h2>Masuk</h2>
                     <form id="loginForm">
                         <label>Email</label>
@@ -35,7 +35,7 @@ async function handleSubmit(e) {
     try {
         const { token, user } = await api.login(email, password);
         localStorage.setItem('token', token);
-        navigate('/app');
+        navigate('/keuanganku');
     } catch (error) {
         alert('Email atau password salah');
     }

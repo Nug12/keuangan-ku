@@ -30,11 +30,11 @@ function requireAuth(handler) {
 // Routes
 route('/login', renderLogin);
 route('/register', renderRegister);
-route('/app', requireAuth(renderDashboard));
-route('/app/pockets', requireAuth(renderPockets));
-route('/app/transactions', requireAuth(renderTransactions));
-route('/app/budgets', requireAuth(renderBudgets));
-route('/app/reports', requireAuth(renderReports));
+route('/keuanganku', requireAuth(renderDashboard));
+route('/keuanganku/pockets', requireAuth(renderPockets));
+route('/keuanganku/transactions', requireAuth(renderTransactions));
+route('/keuanganku/budgets', requireAuth(renderBudgets));
+route('/keuanganku/reports', requireAuth(renderReports));
 
 // Register service worker
 if ('serviceWorker' in navigator) {

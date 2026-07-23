@@ -5,7 +5,7 @@
       "name": "KeuanganKu",
       "icon": "fa-solid fa-wallet",
       "description": "Aplikasi pengelolaan keuangan pribadi dengan fitur kantong (pocket), transaksi, anggaran, laporan grafik, export PDF/Excel, notifikasi, dan mode offline.",
-      "url": "/app",
+      "url": "/keuanganku",
       "color": "#87CEEB",
       "status": "Live",
       "demo": {

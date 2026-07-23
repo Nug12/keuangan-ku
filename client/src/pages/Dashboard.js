@@ -11,11 +11,11 @@ export async function renderDashboard() {
             <nav class="navbar-app">
                 <div class="logo">💰 KeuanganKu</div>
                 <div class="nav-links">
-                    <a href="#/app" class="active">Dashboard</a>
-                    <a href="#/app/pockets">Kantong</a>
-                    <a href="#/app/transactions">Transaksi</a>
-                    <a href="#/app/budgets">Budget</a>
-                    <a href="#/app/reports">Laporan</a>
+                    <a href="#/keuanganku" class="active">Dashboard</a>
+                    <a href="#/keuanganku/pockets">Kantong</a>
+                    <a href="#/keuanganku/transactions">Transaksi</a>
+                    <a href="#/keuanganku/budgets">Budget</a>
+                    <a href="#/keuanganku/reports">Laporan</a>
                 </div>
                 <div class="nav-right">
                     <div id="notifBell"></div>
@@ -45,12 +45,12 @@ export async function renderDashboard() {
                     <div class="card">
                         <h2>Kantong Saya</h2>
                         <div id="pocketsList"></div>
-                        <a href="#/app/pockets" class="btn btn-secondary btn-block">Lihat Semua</a>
+                        <a href="#/keuanganku/pockets" class="btn btn-secondary btn-block">Lihat Semua</a>
                     </div>
                     <div class="card">
                         <h2>Transaksi Terakhir</h2>
                         <div id="recentTransactions"></div>
-                        <a href="#/app/transactions" class="btn btn-secondary btn-block">Lihat Semua</a>
+                        <a href="#/keuanganku/transactions" class="btn btn-secondary btn-block">Lihat Semua</a>
                     </div>
                 </div>
             </div>

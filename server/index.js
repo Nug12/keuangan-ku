@@ -38,11 +38,11 @@ app.use('/api/notifications', notificationRoutes);
 const publicPath = join(process.cwd(), 'public');
 app.use(express.static(publicPath));
 
-// SPA fallback — serve index.html for /app and sub-routes
-app.get('/app', (req, res) => {
+// SPA fallback — serve index.html for /keuanganku and sub-routes
+app.get('/keuanganku', (req, res) => {
     res.sendFile(join(publicPath, 'index.html'));
 });
-app.use('/app', (req, res) => {
+app.use('/keuanganku', (req, res) => {
     res.sendFile(join(publicPath, 'index.html'));
 });
 

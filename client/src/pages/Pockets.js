@@ -10,11 +10,11 @@ export async function renderPockets() {
             <nav class="navbar-app">
                 <div class="logo">💰 KeuanganKu</div>
                 <div class="nav-links">
-                    <a href="#/app">Dashboard</a>
-                    <a href="#/app/pockets" class="active">Kantong</a>
-                    <a href="#/app/transactions">Transaksi</a>
-                    <a href="#/app/budgets">Budget</a>
-                    <a href="#/app/reports">Laporan</a>
+                    <a href="#/keuanganku">Dashboard</a>
+                    <a href="#/keuanganku/pockets" class="active">Kantong</a>
+                    <a href="#/keuanganku/transactions">Transaksi</a>
+                    <a href="#/keuanganku/budgets">Budget</a>
+                    <a href="#/keuanganku/reports">Laporan</a>
                 </div>
                 <button class="btn btn-secondary" id="logoutBtn">Keluar</button>
             </nav>

@@ -8,7 +8,7 @@ export function renderRegister() {
         <div class="container">
             <div class="auth-container">
                 <div class="auth-card">
-                    <h1>💰 KeuanganKu</h1>
+                    <h1><i class="fa-solid fa-wallet"></i> KeuanganKu</h1>
                     <h2>Daftar</h2>
                     <form id="registerForm">
                         <label>Nama</label>
@@ -38,7 +38,7 @@ async function handleSubmit(e) {
     try {
         const { token, user } = await api.register(email, password, name);
         localStorage.setItem('token', token);
-        navigate('/app');
+        navigate('/keuanganku');
     } catch (error) {
         alert('Gagal mendaftar: ' + error.message);
     }

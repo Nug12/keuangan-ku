@@ -7,6 +7,7 @@ import { renderLogin } from './pages/Login.js';
 import { renderRegister } from './pages/Register.js';
 import { renderDashboard } from './pages/Dashboard.js';
 import { renderPockets } from './pages/Pockets.js';
+import { renderTransactions } from './pages/Transactions.js';
 
 // Check auth
 function isAuthenticated() {
@@ -29,6 +30,7 @@ route('/login', renderLogin);
 route('/register', renderRegister);
 route('/app', requireAuth(renderDashboard));
 route('/app/pockets', requireAuth(renderPockets));
+route('/app/transactions', requireAuth(renderTransactions));
 
 // Init
 initRouter();

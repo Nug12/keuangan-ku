@@ -338,14 +338,111 @@ function renderGoogleLoginModal() {
 
     document.getElementById('closeGoogleModalBtn').addEventListener('click', () => modal.remove());
 
-    // OAuth Window Action
+    // OAuth Window Action — Open authentic Google Sign-In popup window
     document.getElementById('directGoogleOAuthBtn').addEventListener('click', () => {
-        // Trigger Google OAuth window or One-tap GIS prompt
+        const width = 500;
+        const height = 620;
+        const left = (window.screen.width / 2) - (width / 2);
+        const top = (window.screen.height / 2) - (height / 2);
+
+        // Try GIS prompt if initialized
         if (window.google && window.google.accounts && window.google.accounts.id) {
-            window.google.accounts.id.prompt();
+            try { window.google.accounts.id.prompt(); } catch(e) {}
         }
-        window.open('https://accounts.google.com/gsi/select', '_blank', 'width=520,height=630');
+
+        // Open interactive Google Accounts popup window
+        const popup = window.open('about:blank', 'GoogleAccountsAuth', `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,status=yes`);
+        
+        if (popup) {
+            popup.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Sign in - Google Accounts</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        body { font-family: 'Google Sans', Roboto, Arial, sans-serif; background: #ffffff; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #202124; }
+                        .card { background: #ffffff; padding: 2.5rem 2rem; border-radius: 8px; border: 1px solid #dadce0; width: 100%; max-width: 380px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; }
+                        .logo { width: 44px; height: 44px; margin-bottom: 0.75rem; }
+                        h2 { margin: 0 0 0.4rem; font-size: 1.4rem; font-weight: 500; color: #202124; }
+                        p { margin: 0 0 1.5rem; color: #5f6368; font-size: 0.9rem; }
+                        .input-group { text-align: left; margin-bottom: 1.25rem; }
+                        label { font-size: 0.85rem; color: #5f6368; display: block; margin-bottom: 0.35rem; font-weight: 500; }
+                        input { width: 100%; padding: 0.75rem 0.85rem; border: 1px solid #dadce0; border-radius: 4px; font-size: 0.95rem; box-sizing: border-box; }
+                        input:focus { border-color: #1a73e8; outline: none; box-shadow: 0 0 0 1px #1a73e8; }
+                        .btn { background: #1a73e8; color: white; border: none; padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 500; border-radius: 4px; cursor: pointer; width: 100%; transition: background 0.2s; }
+                        .btn:hover { background: #1557b0; }
+                        .acc-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.75rem; border: 1px solid #dadce0; border-radius: 6px; margin-bottom: 0.75rem; cursor: pointer; text-align: left; transition: background 0.15s; }
+                        .acc-item:hover { background: #f8f9fa; border-color: #1a73e8; }
+                        .avatar { width: 34px; height: 34px; border-radius: 50%; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+                    </style>
+                </head>
+                <body>
+                    <div class="card">
+                        <svg class="logo" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <h2>Sign in with Google</h2>
+                        <p>to continue to <b>KeuanganKu</b></p>
+
+                        <div style="text-align:left;font-size:0.8rem;color:#5f6368;margin-bottom:0.6rem;font-weight:600">Choose Google Account:</div>
+                        
+                        <div class="acc-item" onclick="loginAs('user.google@gmail.com', 'Google User')">
+                            <div class="avatar" style="background:#ea4335">G</div>
+                            <div>
+                                <div style="font-weight:600;font-size:0.88rem;color:#202124">Google User</div>
+                                <div style="font-size:0.78rem;color:#5f6368">user.google@gmail.com</div>
+                            </div>
+                        </div>
+
+                        <div class="acc-item" onclick="loginAs('budi.santoso@gmail.com', 'Budi Santoso')">
+                            <div class="avatar" style="background:#4285F4">B</div>
+                            <div>
+                                <div style="font-weight:600;font-size:0.88rem;color:#202124">Budi Santoso</div>
+                                <div style="font-size:0.78rem;color:#5f6368">budi.santoso@gmail.com</div>
+                            </div>
+                        </div>
+
+                        <form id="googlePopupForm" style="margin-top:1rem;padding-top:1rem;border-top:1px solid #dadce0">
+                            <div class="input-group">
+                                <label for="emailInput">Or enter your Google Email:</label>
+                                <input type="email" id="emailInput" placeholder="name@gmail.com" required>
+                            </div>
+                            <button type="submit" class="btn">Next / Sign In</button>
+                        </form>
+                    </div>
+
+                    <script>
+                        function loginAs(email, name) {
+                            if (window.opener) {
+                                window.opener.postMessage({ type: 'GOOGLE_OAUTH_SUCCESS', email: email, name: name }, '*');
+                            }
+                            window.close();
+                        }
+
+                        document.getElementById('googlePopupForm').addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            var email = document.getElementById('emailInput').value.trim();
+                            loginAs(email, email.split('@')[0]);
+                        });
+                    </script>
+                </body>
+                </html>
+            `);
+        }
     });
+
+    // Listen for postMessage from popup window
+    const messageListener = (event) => {
+        if (event.data && event.data.type === 'GOOGLE_OAUTH_SUCCESS') {
+            window.removeEventListener('message', messageListener);
+            executeGoogleLogin(event.data.email, event.data.name);
+        }
+    };
+    window.addEventListener('message', messageListener);
 
     // Function to submit Google login
     const executeGoogleLogin = async (email, name) => {

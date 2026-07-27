@@ -67,6 +67,39 @@ async function syncCoreAccounts() {
     } else {
         db.prepare("UPDATE users SET email = 'demo@nug12.biz.id', password_hash = ? WHERE id = ?").run(demoHash, demo.id);
     }
+
+    // 4. Public demo account: demo123@keuanganku.com (Role: user, Pass: demo123)
+    const demo123Hash = await hashPassword('demo123');
+    let demo123 = db.prepare('SELECT id FROM users WHERE LOWER(email) = ?').get('demo123@keuanganku.com');
+    if (!demo123) {
+        db.prepare('INSERT INTO users (id, email, password_hash, name, role, theme, language) VALUES (?, ?, ?, ?, ?, ?, ?)')
+            .run(uuidv4(), 'demo123@keuanganku.com', demo123Hash, 'Demo User 123', 'user', 'light', 'id');
+        console.log('✅ Created public demo account: demo123@keuanganku.com');
+    } else {
+        db.prepare("UPDATE users SET password_hash = ? WHERE id = ?").run(demo123Hash, demo123.id);
+    }
+
+    // 5. Public admin account: admin123@keuanganku.com (Role: admin, Pass: admin123)
+    const admin123Hash = await hashPassword('admin123');
+    let admin123 = db.prepare('SELECT id FROM users WHERE LOWER(email) = ?').get('admin123@keuanganku.com');
+    if (!admin123) {
+        db.prepare('INSERT INTO users (id, email, password_hash, name, role, theme, language) VALUES (?, ?, ?, ?, ?, ?, ?)')
+            .run(uuidv4(), 'admin123@keuanganku.com', admin123Hash, 'Admin 123', 'admin', 'light', 'id');
+        console.log('✅ Created public admin account: admin123@keuanganku.com');
+    } else {
+        db.prepare("UPDATE users SET password_hash = ?, role = 'admin' WHERE id = ?").run(admin123Hash, admin123.id);
+    }
+
+    // 6. Public user account: user123@keuanganku.com (Role: user, Pass: user123)
+    const user123Hash = await hashPassword('user123');
+    let user123 = db.prepare('SELECT id FROM users WHERE LOWER(email) = ?').get('user123@keuanganku.com');
+    if (!user123) {
+        db.prepare('INSERT INTO users (id, email, password_hash, name, role, theme, language) VALUES (?, ?, ?, ?, ?, ?, ?)')
+            .run(uuidv4(), 'user123@keuanganku.com', user123Hash, 'User 123', 'user', 'light', 'id');
+        console.log('✅ Created public user account: user123@keuanganku.com');
+    } else {
+        db.prepare("UPDATE users SET password_hash = ? WHERE id = ?").run(user123Hash, user123.id);
+    }
 }
 syncCoreAccounts().catch(console.error);
 

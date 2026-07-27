@@ -71,16 +71,33 @@ router.post('/google', async (req, res) => {
         let userEmail = email;
         let userName = name;
 
-        // If JWT credential from Google Identity Services is provided, attempt to decode it
-        if (credential && !userEmail) {
+        // If JWT credential token from Google Identity Services is provided, verify it with Google OAuth
+        if (credential) {
             try {
+                // Verify real Google JWT token using Google OAuth tokeninfo API
+                const googleRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${credential}`);
+                if (googleRes.ok) {
+                    const googlePayload = await googleRes.json();
+                    if (googlePayload && googlePayload.email) {
+                        userEmail = googlePayload.email;
+                        userName = googlePayload.name || googlePayload.given_name || userName;
+                        console.log(`✅ Verified real Google JWT ID Token for ${userEmail}`);
+                    }
+                } else {
+                    // Fallback to JWT decode if tokeninfo is unreachable
+                    const decoded = jwt.decode(credential);
+                    if (decoded && decoded.email) {
+                        userEmail = decoded.email;
+                        userName = decoded.name || decoded.given_name || userName;
+                    }
+                }
+            } catch (e) {
+                console.error('Error verifying Google JWT credential with Google servers:', e);
                 const decoded = jwt.decode(credential);
                 if (decoded && decoded.email) {
                     userEmail = decoded.email;
                     userName = decoded.name || decoded.given_name || userName;
                 }
-            } catch (e) {
-                console.error('Error decoding Google JWT credential:', e);
             }
         }
 

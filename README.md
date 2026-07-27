@@ -93,6 +93,3 @@ keuangan-ku/
 └── README.md
 ```
 
-## License
-
-MIT

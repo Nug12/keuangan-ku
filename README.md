@@ -72,7 +72,6 @@ docker compose logs -f
 
 ### Production
 - **Live App:** https://keuanganku.nug12.biz.id
-- **Landing Page:** https://nug12.biz.id
 
 ### Demo Accounts
 
@@ -81,8 +80,6 @@ docker compose logs -f
 | demo123@keuanganku.com | demo123 | Demo | Read-only demo account (resets daily) |
 | admin123@keuanganku.com | admin123 | Admin | Full admin access |
 | user123@keuanganku.com | user123 | User | Standard user account |
-
-**Note:** Demo account database resets daily at 00:00 UTC. Production accounts (nug12@nug12.biz.id) are NOT included in public repository.
 
 ## Project Structure
 

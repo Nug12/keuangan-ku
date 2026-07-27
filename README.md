@@ -88,17 +88,10 @@ keuangan-ku/
 ├── client/          # Frontend (Vite + Vanilla JS)
 ├── server/          # Backend (Node.js + Express)
 ├── landing/         # Landing Page (static)
-├── docs/            # Documentation
 ├── docker-compose.yml
 ├── Dockerfile
 └── README.md
 ```
-
-## Documentation
-
-- [Design Spec](docs/specs/2026-07-23-keuangan-ku-design.md)
-- [Implementation Plan](docs/plans/2026-07-23-keuangan-ku-implementation.md)
-- [PRD](docs/prd/2026-07-23-keuangan-ku-prd.md)
 
 ## License
 

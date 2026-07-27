@@ -1,3 +1,5 @@
+import { renderIconHtml } from '../utils/formatters.js';
+
 export function PocketCard(pocket, onEdit, onDelete) {
     const card = document.createElement('div');
     card.className = 'card pocket-card';
@@ -6,7 +8,7 @@ export function PocketCard(pocket, onEdit, onDelete) {
     card.innerHTML = `
         <div class="pocket-header">
             <div class="pocket-icon-box" style="background:${pocket.color}20; color:${pocket.color}">
-                <i class="${pocket.icon}"></i>
+                ${renderIconHtml(pocket.icon, 'fa-solid fa-wallet')}
             </div>
             <div class="pocket-actions">
                 <button class="btn-icon edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>

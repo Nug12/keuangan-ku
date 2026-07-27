@@ -9,15 +9,33 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">
-            <i class="fa-solid fa-code"></i> Nug12 Dev
+        <div class="navbar-content">
+            <div class="logo">
+                <i class="fa-solid fa-code"></i> Nug12 Dev
+            </div>
+            <button class="lang-toggle" id="langToggle">
+                <span class="lang-text">ID</span>
+            </button>
         </div>
     </nav>
 
     <main class="container">
         <section class="hero">
-            <h1>Selamat Datang!</h1>
-            <p>Kumpulan aplikasi yang saya buat. Klik untuk mencoba.</p>
+            <h1 data-text-id="Kelola keuanganmu dengan mudah dan nyaman" data-text-en="Manage your finances easily and comfortably">Kelola keuanganmu dengan mudah dan nyaman</h1>
+            <div class="features-list">
+                <div class="feature-item" data-text-id="Kantong & dompet" data-text-en="Wallets & Pockets">
+                    <i class="fa-solid fa-folder"></i>
+                    <span>Kantong & dompet</span>
+                </div>
+                <div class="feature-item" data-text-id="Laporan grafik" data-text-en="Graphic Reports">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Laporan grafik</span>
+                </div>
+                <div class="feature-item" data-text-id="Notifikasi & mode offline" data-text-en="Notifications & Offline Mode">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Notifikasi & mode offline</span>
+                </div>
+            </div>
         </section>
 
         <section class="apps-grid" id="appsGrid">
@@ -25,15 +43,16 @@
         </section>
 
         <section class="about" id="about">
-            <h2>About Me</h2>
-            <p>Developer yang suka membuat aplikasi bermanfaat.</p>
+            <h2 data-text-id="Tentang Saya" data-text-en="About Me">About Me</h2>
+            <p data-text-id="Developer yang suka membuat aplikasi bermanfaat." data-text-en="A developer who loves building useful applications.">Developer yang suka membuat aplikasi bermanfaat.</p>
         </section>
     </main>
 
     <footer class="footer">
-        <p>Made with <i class="fa-solid fa-heart" style="color:#e74c3c;"></i> by Nug12 Dev</p>
+        <p data-text-id="Dibuat dengan " data-text-en="Made with ">Made with <i class="fa-solid fa-heart" style="color:#e74c3c;"></i> by Nug12 Dev</p>
     </footer>
 
+    <script src="/lang.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

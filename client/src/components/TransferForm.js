@@ -1,4 +1,5 @@
 import { Calculator } from './Calculator.js';
+import { t, translatePocketName } from '../i18n.js';
 
 export function TransferForm(pockets, onSubmit) {
     const form = document.createElement('form');
@@ -9,30 +10,30 @@ export function TransferForm(pockets, onSubmit) {
     const timeStr = now.toTimeString().slice(0, 5);
 
     form.innerHTML = `
-        <h3>Transfer Antar Kantong</h3>
+        <h3>${t('transferTitle')}</h3>
 
         <div class="form-row">
             <div class="form-group">
-                <label>Tanggal</label>
+                <label>${t('dateLabel')}</label>
                 <input type="date" id="transferDate" value="${dateStr}" required>
             </div>
             <div class="form-group">
-                <label>Waktu</label>
+                <label>${t('timeLabel')}</label>
                 <input type="time" id="transferTime" value="${timeStr}" required>
             </div>
         </div>
 
-        <label>Dari Kantong</label>
+        <label>${t('fromPocket')}</label>
         <select id="fromPocket" required>
-            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
+            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${translatePocketName(p.name)} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
         </select>
 
-        <label>Ke Kantong</label>
+        <label>${t('toPocket')}</label>
         <select id="toPocket" required>
-            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
+            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${translatePocketName(p.name)} (Rp ${p.balance.toLocaleString('id-ID')})</option>`).join('')}
         </select>
 
-        <label>Nominal</label>
+        <label>${t('amount')}</label>
         <div class="input-with-icon">
             <span class="input-prefix">Rp</span>
             <input type="number" id="transferAmount" required min="1" placeholder="0" class="input-amount">
@@ -41,11 +42,11 @@ export function TransferForm(pockets, onSubmit) {
             </button>
         </div>
 
-        <label>Catatan</label>
-        <input type="text" id="transferNote" placeholder="Opsional">
+        <label>${t('noteLabel')}</label>
+        <input type="text" id="transferNote" placeholder="${t('optional')}">
 
         <button type="submit" class="btn btn-primary btn-block">
-            <i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer
+            <i class="fa-solid fa-arrow-right-arrow-left"></i> ${t('transferBtn')}
         </button>
     `;
 

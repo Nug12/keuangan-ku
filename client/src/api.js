@@ -49,11 +49,24 @@ export const api = {
         method: 'POST',
         body: JSON.stringify({ email, password }),
     }),
+    googleLogin: (data) => request('/auth/google', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    }),
+    forgotPassword: (email) => request('/auth/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+    }),
+    resetPassword: (email, token, newPassword) => request('/auth/reset-password', {
+        method: 'POST',
+        body: JSON.stringify({ email, token, newPassword }),
+    }),
     register: (email, password, name) => request('/auth/register', {
         method: 'POST',
         body: JSON.stringify({ email, password, name }),
     }),
     getMe: () => request('/auth/me'),
+    getProfile: () => request('/auth/me'),
 
     // Pockets
     getPockets: () => request('/pockets'),
@@ -111,4 +124,42 @@ export const api = {
     getNotifications: () => request('/notifications'),
     markRead: (id) => request(`/notifications/${id}/read`, { method: 'PUT' }),
     deleteNotification: (id) => request(`/notifications/${id}`, { method: 'DELETE' }),
+
+    // Categories
+    getCategories: () => request('/categories'),
+    createCategory: (data) => request('/categories', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    }),
+    updateCategory: (id, data) => request(`/categories/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+    }),
+    deleteCategory: (id) => request(`/categories/${id}`, {
+        method: 'DELETE',
+    }),
+
+    // Export
+    getExport: (params = {}) => {
+        const query = new URLSearchParams(params).toString();
+        return request(`/transactions?${query}`);
+    },
+
+    // Preferences
+    updatePreferences: (data) => request('/auth/preferences', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+    }),
+
+    // Admin
+    getAdminStats: () => request('/admin/stats'),
+    getAdminUsers: () => request('/admin/users'),
+    updateUserRole: (id, role) => request(`/admin/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
+    updateUserPassword: (id, newPassword) => request(`/admin/users/${id}/password`, { method: 'PUT', body: JSON.stringify({ newPassword }) }),
+    deleteUser: (id) => request(`/admin/users/${id}`, { method: 'DELETE' }),
+    sendBroadcastNotification: (data) => request('/admin/broadcast-notification', { method: 'POST', body: JSON.stringify(data) }),
+    getAdminBroadcasts: () => request('/admin/broadcasts'),
+    deleteAdminBroadcast: (ids) => request('/admin/broadcasts', { method: 'DELETE', body: JSON.stringify({ ids }) }),
+    getAdminDemoResetLogs: () => request('/admin/demo-reset-logs'),
+    resetDemoDatabase: () => request('/admin/reset-demo', { method: 'POST' }),
 };

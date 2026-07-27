@@ -1,15 +1,1 @@
-.charts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
-}
-
-.chart-container {
-    position: relative;
-    height: 300px;
-}
-
-.export-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
+/* reports.css - minimal, main styles in main.css */

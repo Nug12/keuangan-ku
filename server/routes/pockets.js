@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
 
 // Update pocket
 router.put('/:id', (req, res) => {
-    const { name, icon, color } = req.body;
+    const { name, icon, color, balance } = req.body;
 
     const pocket = db.prepare('SELECT * FROM pockets WHERE id = ? AND user_id = ?')
         .get(req.params.id, req.user.id);
@@ -53,8 +53,8 @@ router.put('/:id', (req, res) => {
         return res.status(404).json({ error: 'Pocket not found' });
     }
 
-    db.prepare('UPDATE pockets SET name = ?, icon = ?, color = ? WHERE id = ?')
-        .run(name || pocket.name, icon || pocket.icon, color || pocket.color, req.params.id);
+    db.prepare('UPDATE pockets SET name = ?, icon = ?, color = ?, balance = ? WHERE id = ?')
+        .run(name || pocket.name, icon || pocket.icon, color || pocket.color, balance !== undefined ? balance : pocket.balance, req.params.id);
 
     const updated = db.prepare('SELECT * FROM pockets WHERE id = ?').get(req.params.id);
     res.json(updated);

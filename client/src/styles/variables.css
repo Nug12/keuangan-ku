@@ -1,16 +1,118 @@
-:root {
-    --primary: #87CEEB;
-    --primary-light: #B0E0E6;
-    --secondary: #98FB98;
-    --secondary-light: #F0FFF0;
-    --accent: #FFB6C1;
-    --background: #FFFAF0;
-    --text: #2F4F4F;
-    --text-light: #708090;
-    --success: #90EE90;
-    --warning: #FFD700;
-    --danger: #FFB6C1;
-    --white: #FFFFFF;
-    --shadow: 0 4px 15px rgba(0,0,0,0.1);
-    --radius: 16px;
+/* ===== 4 Distinct Color Themes (Light & Dark) ===== */
+
+/* 1. Ocean Theme (Default Sky Blue) */
+:root, [data-color-theme="ocean"] {
+  --primary: #4a9fba;
+  --primary-hover: #3b88a0;
+  --secondary: #5fb8d6;
+  --bg: #e8f4f8;
+  --card: #ffffff;
+  --card-2: #edf7fa;
+  --border: rgba(74, 159, 186, 0.2);
+  --text: #1b3a4a;
+  --text-secondary: #2d5568;
+  --shadow: 0 10px 30px rgba(27, 58, 74, 0.12);
+  --radius: 18px;
+  --auth-bg: linear-gradient(135deg, #e8f4f8 0%, #d6eaf0 100%);
+}
+
+.dark, .dark[data-color-theme="ocean"] {
+  --primary: #38bdf8;
+  --primary-hover: #0284c7;
+  --secondary: #7dd3fc;
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card-2: #334155;
+  --border: rgba(56, 189, 248, 0.25);
+  --text: #f0f9ff;
+  --text-secondary: #94a3b8;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --auth-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* 2. Emerald Theme (Forest Green) */
+[data-color-theme="emerald"] {
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --secondary: #34d399;
+  --bg: #f0fdf4;
+  --card: #ffffff;
+  --card-2: #e6f7ec;
+  --border: rgba(16, 185, 129, 0.2);
+  --text: #064e3b;
+  --text-secondary: #047857;
+  --shadow: 0 10px 30px rgba(6, 78, 59, 0.12);
+  --auth-bg: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.dark[data-color-theme="emerald"] {
+  --primary: #34d399;
+  --primary-hover: #10b981;
+  --secondary: #6ee7b7;
+  --bg: #022c22;
+  --card: #064e3b;
+  --card-2: #065f46;
+  --border: rgba(52, 211, 153, 0.25);
+  --text: #ecfdf5;
+  --text-secondary: #a7f3d0;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --auth-bg: linear-gradient(135deg, #022c22 0%, #064e3b 100%);
+}
+
+/* 3. Violet Theme (Regal Purple) */
+[data-color-theme="violet"] {
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --secondary: #a78bfa;
+  --bg: #f5f3ff;
+  --card: #ffffff;
+  --card-2: #ede9fe;
+  --border: rgba(139, 92, 246, 0.2);
+  --text: #3c1d70;
+  --text-secondary: #5b21b6;
+  --shadow: 0 10px 30px rgba(60, 29, 112, 0.12);
+  --auth-bg: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+}
+
+.dark[data-color-theme="violet"] {
+  --primary: #a78bfa;
+  --primary-hover: #8b5cf6;
+  --secondary: #c4b5fd;
+  --bg: #2e1065;
+  --card: #4c1d95;
+  --card-2: #5b21b6;
+  --border: rgba(167, 139, 250, 0.25);
+  --text: #f5f3ff;
+  --text-secondary: #ddd6fe;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --auth-bg: linear-gradient(135deg, #2e1065 0%, #4c1d95 100%);
+}
+
+/* 4. Rose Theme (Pink Velvet) */
+[data-color-theme="rose"] {
+  --primary: #f43f5e;
+  --primary-hover: #e11d48;
+  --secondary: #fb7185;
+  --bg: #fff1f2;
+  --card: #ffffff;
+  --card-2: #ffe4e6;
+  --border: rgba(244, 63, 94, 0.2);
+  --text: #4c0519;
+  --text-secondary: #9f1239;
+  --shadow: 0 10px 30px rgba(76, 5, 25, 0.12);
+  --auth-bg: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+}
+
+.dark[data-color-theme="rose"] {
+  --primary: #fb7185;
+  --primary-hover: #f43f5e;
+  --secondary: #fda4af;
+  --bg: #4c0519;
+  --card: #881337;
+  --card-2: #9f1239;
+  --border: rgba(251, 113, 133, 0.25);
+  --text: #fff1f2;
+  --text-secondary: #fecdd3;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --auth-bg: linear-gradient(135deg, #4c0519 0%, #881337 100%);
 }

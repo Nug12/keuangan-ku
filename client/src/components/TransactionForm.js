@@ -1,6 +1,13 @@
 import { Calculator } from './Calculator.js';
+import { t, translatePocketName, translateCategoryName } from '../i18n.js';
 
-export function TransactionForm(pockets, onSubmit) {
+export function TransactionForm(pockets, categories = [], onSubmit) {
+    // If 2 arguments passed (pockets, onSubmit)
+    if (typeof categories === 'function') {
+        onSubmit = categories;
+        categories = [];
+    }
+
     const form = document.createElement('form');
     form.className = 'transaction-form';
 
@@ -9,84 +16,116 @@ export function TransactionForm(pockets, onSubmit) {
     const timeStr = now.toTimeString().slice(0, 5);
 
     form.innerHTML = `
-        <h3>Tambah Transaksi</h3>
+        <h3>${t('addTxnTitle')}</h3>
         <div class="form-tabs">
-            <button type="button" class="tab active" data-type="expense">Pengeluaran</button>
-            <button type="button" class="tab" data-type="income">Pemasukan</button>
+            <button type="button" class="tab active" data-type="expense">${t('expense')}</button>
+            <button type="button" class="tab" data-type="income">${t('income')}</button>
         </div>
         <input type="hidden" id="txnType" value="expense">
 
         <div class="form-row">
             <div class="form-group">
-                <label>Tanggal</label>
+                <label>${t('dateLabel')}</label>
                 <input type="date" id="txnDate" value="${dateStr}" required>
             </div>
             <div class="form-group">
-                <label>Waktu</label>
+                <label>${t('timeLabel')}</label>
                 <input type="time" id="txnTime" value="${timeStr}" required>
             </div>
         </div>
 
-        <label>Kantong</label>
+        <label>${t('pocket')}</label>
         <select id="txnPocket" required>
-            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${p.name}</option>`).join('')}
+            ${pockets.map(p => `<option value="${p.id}"><i class="${p.icon}"></i> ${translatePocketName(p.name)}</option>`).join('')}
         </select>
 
-        <label>Nominal</label>
+        <label>${t('amount')}</label>
         <div class="input-with-icon">
             <span class="input-prefix">Rp</span>
-            <input type="number" id="txnAmount" required min="1" placeholder="0" class="input-amount">
+            <input type="text" id="txnAmountDisplay" required placeholder="0" class="input-amount">
+            <input type="hidden" id="txnAmount" value="0">
             <button type="button" class="calc-trigger" id="calcBtn">
                 <i class="fa-solid fa-calculator"></i>
             </button>
         </div>
 
-        <label>Kategori</label>
+        <label>${t('category')}</label>
         <select id="txnCategory">
-            <option value="makanan"><i class="fa-solid fa-utensils"></i> Makanan</option>
-            <option value="transport"><i class="fa-solid fa-car"></i> Transport</option>
-            <option value="belanja"><i class="fa-solid fa-cart-shopping"></i> Belanja</option>
-            <option value="tagihan"><i class="fa-solid fa-file-invoice"></i> Tagihan</option>
-            <option value="hiburan"><i class="fa-solid fa-gamepad"></i> Hiburan</option>
-            <option value="gaji"><i class="fa-solid fa-money-bill"></i> Gaji</option>
-            <option value="lainnya"><i class="fa-solid fa-box"></i> Lainnya</option>
         </select>
 
-        <label>Deskripsi</label>
-        <input type="text" id="txnDescription" placeholder="Opsional">
+        <label>${t('description')}</label>
+        <textarea id="txnDescription" placeholder="${t('notePlaceholder')}" rows="2"></textarea>
 
         <button type="submit" class="btn btn-primary btn-block">
-            <i class="fa-solid fa-check"></i> Simpan
+            <i class="fa-solid fa-check"></i> ${t('saveBtn')}
         </button>
     `;
 
-    // Tab switching
+    function updateCategoryDropdown(type) {
+        const catSelect = form.querySelector('#txnCategory');
+        if (!catSelect) return;
+
+        const filtered = (categories || []).filter(c => c.type === type);
+        if (filtered.length > 0) {
+            catSelect.innerHTML = filtered.map(c => `<option value="${c.name.toLowerCase()}">${translateCategoryName(c.name)}</option>`).join('');
+        } else {
+            // Default fallbacks
+            if (type === 'income') {
+                catSelect.innerHTML = `<option value="gaji">${t('cat_gaji')}</option><option value="freelance">Freelance</option><option value="lainnya">${t('cat_lainnya')}</option>`;
+            } else {
+                catSelect.innerHTML = `<option value="makanan">${t('cat_makanan')}</option><option value="transport">${t('cat_transport')}</option><option value="belanja">${t('cat_belanja')}</option><option value="tagihan">${t('cat_tagihan')}</option><option value="hiburan">${t('cat_hiburan')}</option><option value="lainnya">${t('cat_lainnya')}</option>`;
+            }
+        }
+    }
+
+    // Initial category load for default 'expense' type
+    updateCategoryDropdown('expense');
+
+    // Tab switching with dynamic color & category updates
     form.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
             form.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-            document.getElementById('txnType').value = tab.dataset.type;
+            const type = tab.dataset.type;
+            form.querySelector('#txnType').value = type;
+            updateCategoryDropdown(type);
         });
     });
 
-    // Calculator trigger
-    const amountInput = form.querySelector('#txnAmount');
-    form.querySelector('#calcBtn').addEventListener('click', () => {
-        document.body.appendChild(Calculator(amountInput));
+    // Setup number formatting
+    const displayInput = form.querySelector('#txnAmountDisplay');
+    const hiddenInput = form.querySelector('#txnAmount');
+    
+    displayInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value === '') value = '0';
+        hiddenInput.value = value;
+        displayInput.value = parseInt(value).toLocaleString('id-ID');
+    });
+    
+    // Calculator trigger with pre-fill
+    form.querySelector('#calcBtn').addEventListener('click', async () => {
+        const calc = new Calculator();
+        const currentValue = parseInt(hiddenInput.value) || 0;
+        const result = await calc.show(currentValue);
+        if (result !== null) {
+            hiddenInput.value = result;
+            displayInput.value = result.toLocaleString('id-ID');
+        }
     });
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const date = document.getElementById('txnDate').value;
-        const time = document.getElementById('txnTime').value;
+        const date = form.querySelector('#txnDate').value;
+        const time = form.querySelector('#txnTime').value;
         const created_at = `${date}T${time}:00.000Z`;
 
         onSubmit({
-            pocket_id: document.getElementById('txnPocket').value,
-            type: document.getElementById('txnType').value,
-            amount: parseFloat(document.getElementById('txnAmount').value),
-            category: document.getElementById('txnCategory').value,
-            description: document.getElementById('txnDescription').value,
+            pocket_id: form.querySelector('#txnPocket').value,
+            type: form.querySelector('#txnType').value,
+            amount: parseFloat(hiddenInput.value),
+            category: form.querySelector('#txnCategory').value,
+            description: form.querySelector('#txnDescription').value,
             created_at,
         });
     });

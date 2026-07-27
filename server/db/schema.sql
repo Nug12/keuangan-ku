@@ -3,6 +3,12 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     name TEXT,
+    role TEXT DEFAULT 'user',
+    auth_provider TEXT DEFAULT 'local',
+    reset_token TEXT,
+    reset_token_expires DATETIME,
+    theme TEXT DEFAULT 'light',
+    language TEXT DEFAULT 'id',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -51,6 +57,16 @@ CREATE TABLE IF NOT EXISTS notifications (
     type TEXT,
     message TEXT,
     is_read BOOLEAN DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS categories (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    icon TEXT DEFAULT 'fa-solid fa-tag',
+    type TEXT CHECK(type IN ('income', 'expense')) DEFAULT 'expense',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

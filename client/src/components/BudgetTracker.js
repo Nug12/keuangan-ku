@@ -9,10 +9,12 @@ export function BudgetTracker(budget, onDelete) {
     card.innerHTML = `
         <div class="budget-header">
             <div class="budget-pocket">
-                <span class="pocket-icon">${budget.pocket_icon}</span>
+                <div class="pocket-icon-box" style="background:${budget.pocket_color || '#87CEEB'}20; color:${budget.pocket_color || '#87CEEB'}">
+                    <i class="${budget.pocket_icon}"></i>
+                </div>
                 <span>${budget.pocket_name}</span>
             </div>
-            <button class="btn-icon delete-btn">🗑️</button>
+            <button class="btn-icon delete-btn" title="Hapus"><i class="fa-solid fa-trash"></i></button>
         </div>
         <div class="budget-progress">
             <div class="progress-bar ${isDanger ? 'danger' : isWarning ? 'warning' : ''}" style="width: ${percentage}%"></div>

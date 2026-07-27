@@ -3,12 +3,17 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
+
+// Force WIT (Waktu Indonesia Timur, UTC+9) timezone
+process.env.TZ = 'Asia/Jayapura';
 import authRoutes from './routes/auth.js';
 import pocketRoutes from './routes/pockets.js';
 import transactionRoutes from './routes/transactions.js';
 import budgetRoutes from './routes/budgets.js';
 import reportRoutes from './routes/reports.js';
 import notificationRoutes from './routes/notifications.js';
+import categoryRoutes from './routes/categories.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -33,6 +38,8 @@ app.use('/api/transactions', transactionRoutes);
 app.use('/api/budgets', budgetRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Serve static frontend files
 const publicPath = join(process.cwd(), 'public');

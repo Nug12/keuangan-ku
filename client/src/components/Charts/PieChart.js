@@ -1,4 +1,5 @@
 import Chart from 'chart.js/auto';
+import { translateCategoryName } from '../../i18n.js';
 
 export function PieChart(canvasId, data) {
     const ctx = document.getElementById(canvasId).getContext('2d');
@@ -11,7 +12,7 @@ export function PieChart(canvasId, data) {
     return new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: data.map(d => d.category || d.name),
+            labels: data.map(d => translateCategoryName(d.category || d.name)),
             datasets: [{
                 data: data.map(d => d.total),
                 backgroundColor: colors.slice(0, data.length),

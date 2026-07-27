@@ -5,11 +5,12 @@
       "name": "KeuanganKu",
       "icon": "fa-solid fa-wallet",
       "description": "Aplikasi pengelolaan keuangan pribadi dengan fitur kantong (pocket), transaksi, anggaran, laporan grafik, export PDF/Excel, notifikasi, dan mode offline.",
+      "description_en": "Personal finance management app with pockets, transactions, budgets, graphic reports, PDF/Excel export, notifications, and offline mode.",
       "url": "/keuanganku",
       "color": "#87CEEB",
       "status": "Live",
       "demo": {
-        "username": "demo@keuanganku.com",
+        "username": "demo@nug12.biz.id",
         "password": "demo1234"
       }
     }

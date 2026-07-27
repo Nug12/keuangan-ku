@@ -3,11 +3,24 @@
 }
 
 .bell-btn {
-    background: none;
+    background: transparent;
     border: none;
-    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     cursor: pointer;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.bell-btn:hover {
+    background: var(--background);
+    color: var(--primary);
 }
 
 .badge {

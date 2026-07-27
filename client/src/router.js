@@ -21,6 +21,14 @@ function handleRoute() {
     }
 }
 
+export function getCurrentRoute() {
+    return currentRoute;
+}
+
+export function refreshRoute() {
+    handleRoute();
+}
+
 export function initRouter() {
     window.addEventListener('hashchange', handleRoute);
     handleRoute();
